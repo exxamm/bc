@@ -25,7 +25,7 @@ RollnoTomarks[R_no]+=10;
 } 
 }
 
-+++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 employee detail smart contract
 
 // SPDX-License-Identifier: MIT
@@ -61,7 +61,7 @@ EmployeeToSalary[id] / 10;
  }
 }
 
-+++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++
 
 product detail smart contract 
 
@@ -95,6 +95,257 @@ dist) public {
 
 =================================================================
 
+Ganache blockchain test network and deploy solidity smart contract
 
+1. Open Remix IDE in your browser. After opening click on “ + ” and write the filename as follows – ni.sol
+2. Write the following sample code for testing and compile by clicking on the Compile button as shown –
+   // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+contract manish_05
+{
+ // Defining a function
+ function get_output() public pure returns (string memory){
+ return ("Hi, your contract ran successfully");
+ }
+}
+3. Compile the Smart Contract After compilation open GANACHE on your desktop which you have downloaded from the link given above. The screen will look like below. Click on QUICKSTART Ethereum–
+4. Now you will get 10 default accounts for your blockchain at a local RPC server HTTP://127.0.0.1:7545 
+5. Go back to the browser and move to Deploy section just below the compilation and select Ganache Provider in place Remix VM as shown below
+6.Select Ganache Provider Enter the server HTTP://127.0.0.1:7545 as Ganache Provider. 
+7. Ganache Provider RPC Server Now your contract is ready to be deployed. Click on the Deploy button
+8. Deploy the Smart Contract Expand the deployed contract as below and get the output using the get_output() function
+9. Now, to verify whether your transaction (process) was reflected on the server or not, open GANACHE and move to TRANSACTIONS
+Now your contract is completely ready to function. Make sure the compiler version
+matches the version of your solidity code. This is the basic implementation of
+GANACHE with solidity.
 
+===================================================================================================
 
+Demonstrate setup of myEtherWallet and connect it to Ganache Network
+
+1. Open Remix IDE in your browser. After opening click on “ + ” and write the filename as follows – ni.sol
+2. Write the following sample code for testing and compile by clicking on the Compile button as shown –
+   // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+contract manish_05
+{
+ // Defining a function
+ function get_output() public pure returns (string memory){
+ return ("Hi, your contract ran successfully");
+ }
+}
+3. Compile the Smart Contract After compilation open GANACHE on your desktop which you have downloaded from the link given above. The screen will look like below. Click on QUICKSTART Ethereum–
+4. Now you will get 10 default accounts for your blockchain at a local RPC server HTTP://127.0.0.1:7545 
+5. Go back to the browser and move to Deploy section just below the compilation and select Ganache Provider in place Remix VM as shown below
+6.Select Ganache Provider Enter the server HTTP://127.0.0.1:7545 as Ganache Provider. 
+7. Ganache Provider RPC Server Now your contract is ready to be deployed. Click on the Deploy button
+8. Deploy the Smart Contract Expand the deployed contract as below and get the output using the get_output() function
+9. Now, to verify whether your transaction (process) was reflected on the server or not, open GANACHE and move to TRANSACTIONS
+Now your contract is completely ready to function. Make sure the compiler version
+matches the version of your solidity code. This is the basic implementation of
+GANACHE with solidity.
+10. Extract the Zip file of MyEtherWallet and run its index.html file
+11. Create a new account by Entering the password.Download its Keystore File then Click on “I Understand. Continoue”
+12. Save private key 
+13.Print Paper Wallet
+14. Now Add Connect Remix IDE, Ganache And MyEtherWallet Choose the Add Custom Network
+15. Fill the Details
+Node Name : Give a name eg. My Eth
+URL: Copy The url from the Ganache (RPC SERVER) and paste it
+Port : Enter the port from the Ganache
+16. It is Created successfully
+17. Deploy a contract from the remix and paste the TX from the Ganache in the above
+page. Now, Transaction Details is Shown
+
+============================================================================================================
+
+Demonstrate geth client to create genesis block on your own block chain(GO Etherium)
+
+1. Open CMD and type
+   For checking the environment variable :>geth
+2. Save the IPC Address: url=\\.\pipe\geth.ipc 
+3. Create Folders
+   a. MyNetwork
+   b. MyPrivateChain
+   Create first MyNetwork folder then inside it create MyPrivateChain folder
+4. Create a new file and save inside the MyPrivateChain folder and write the code
+genesis.json File :
+Code :
+{
+ "config":{
+ "chainId":987,
+ "homesteadBlock":0,
+ "eip150Block":0,
+ "eip155Block":0,
+ "eip158Block":0
+ },
+ "difficulty":"0x400",
+ "gasLimit":"0x8000000",
+ "alloc":{}
+}
+5. Run
+>geth –identity "MyBlockChain" --datadir
+C:\Users\user\Documents\TY\Blockchain\MyNetwork\MyPrivateChain init
+C:\Users\user\Documents\TY\Blockchain\MyNetwork\MyPrivateChain\genesis.json 
+6. Open 2nd CMD and type
+>geth --datadir C:\Users\user\Documents\TY\Blockchain\MyNetwork\MyPrivateChain --networkid 8080
+If above is not working then use below command and try above command once again :>taskkill/PID 8080/F
+7. Go to first CMD and Run >geth attach \\.\pipe\geth.ipc
+8. Creating New Account
+personal.newAccount()
+Then give password.
+Then it will give Private block hash store it.
+9. If the account already exist then use it :
+personal.unlockAccount(“#key#”)
+10. >eth.getBalance(“#key#”)
+11. >miner.start()
+For starts the Mining
+12. >miner.stop()
+For stop mining
+
+===========================================================================================
+
+ Demonstrate the blockchain in Python.
+
+import hashlib
+from datetime import datetime
+class Block_Hash:
+    def __init__(self, prev_block_hash, transaction_list):
+        self.prev_block_hash = prev_block_hash
+        self.transaction_list = transaction_list
+        self.timestamp = str(datetime.now())  
+        self.block_data = f"Data:{'-'.join(transaction_list)}-{self.prev_block_hash}-{self.timestamp}"
+        self.block_hash = hashlib.sha256(self.block_data.encode()).hexdigest()
+class Blockchain:
+    def __init__(self):
+        self.chain = []
+        self.generate_genesis_block()
+    def generate_genesis_block(self):
+        self.chain.append(Block_Hash("0", ['Genesis Block']))
+    def create_block_from_transaction(self, transaction_list):
+        previous_block_hash = self.last_block.block_hash
+        self.chain.append(Block_Hash(previous_block_hash, transaction_list))
+    def display_chain(self):
+        for i in range(len(self.chain)):
+            print(f"Data {i+1}: {self.chain[i].block_data}")
+            print(f"Hash {i+1}: {self.chain[i].block_hash}\n")
+    @property
+    def last_block(self):
+        return self.chain[-1]
+t1 = "George sends 3.1 ETH to Joe"
+t2 = "Joe sends 2.5 ETH to Adam"
+t3 = "Adam sends 1.2 ETH to Bob"
+t4 = "Bob sends 0.5 ETH to Charlie"
+t5 = "Charlie sends 0.2 ETH to David"
+t6 = "David sends 0.1 ETH to Eric"
+blockchain = Blockchain()
+blockchain.create_block_from_transaction([t1,t2])
+blockchain.create_block_from_transaction([t3, t4])
+blockchain.create_block_from_transaction([t5, t6])
+blockchain.display_chain()
+
+=====================================================================================================
+
+Demonstrate Cryptocurrency and creating wallets and sending cryptocurrency (Metamask)
+
+1. Search for metamask extension on the chrome browser
+2. Click on the first link and click on the add to chrome
+3. Open metamask extension and click on create a new wallet
+4. Create a Account in it and memorize the password which you will give it
+5. Now, Save the Secret Recovery Phrase It will also help in password recovery
+6. Fill those phrases in the blank space from the above 
+7. After that Your account is created
+8. For the test money we want to change the network to sepolia
+9. Now, Search ethereum sepolia on browser and click on the first link for adding test money in our wallet.
+10. Put the wallet address over there and get the test money.
+11. We got the test money
+12. After opening account successfully go to remix ide for connecting the both
+12. After opening account successfully go to remix ide for connecting the both
+13. After opening it change the Environment to wallet connect and connect with the metamask
+14. After Connection, create a contract and run it
+15. Deploy it
+16. After deployment it will asking for the confirmation and then some amount of money will be deducted from your meta mask wallet.
+Note : If you want to send a transaction to other person you have need to have that person public key.
+17. The Transaction will be made.
+
+=================================================================================================================
+
+Blockchain explorer for Bitcoin and Ethereum- Study and understand the various statistics observations related to bitcoin and Ethereum cryptocurrencies.
+
+1. Open Remix IDE and create a Contract
+Code :
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.26;
+contract Student{
+struct student_data{
+uint256 roll_no;
+string name;
+uint256 marks;
+}
+student_data[] public student;
+mapping (uint256 => string) public RollnoToName;
+mapping (uint256 => uint256) public RollnoTomarks;
+function storeStuden(uint256 R_no, string memory Nm,uint256 mks)public {
+student.push(student_data(R_no,Nm,mks));
+RollnoTomarks[R_no]=mks;
+RollnoToName[R_no]=Nm;
+}
+}
+deploy it
+2. Copy it’s address :0xd7Ca4e99F7C171B9ea2De80d3363c47009afaC5F
+3. Open Browser and search Ethereum Scan then click on the first link Paste the Address and search
+4. Overview of the Transaction
+
+========================================================================================================================
+
+Install and Get Started with the Bitcoin core client.
+
+1. Install the bitcoin core software open it -
+2. Click on create a new wallet
+3. Give wallet name and select encrypted
+4. Create a new password
+5. In windows - console
+6. Open console and typeWindow -> Console
+> getblockchaininfo
+> getmininginfo
+> getpeerinfo
+> getblockcount()
+>getbestblockhash
+> getblockhash(110)
+
+================================================================================================================================
+
+ Write a program to get Bitcoin and create transactions.
+
+1. Run this program first
+Code :
+      from bit import PrivateKeyTestnet
+      mykey = PrivateKeyTestnet()
+      print('version:',mykey.version)
+      print('wif:',mykey.to_wif())
+      print('address:',mykey.address)
+      print('balance:',mykey.get_balance('usd'))
+Output :
+       version: test
+       wif: cNMYiAgTMgiLiv32f1YVkUX4bavBgNuzvXXvsa1LWrQ2y7ReTfr6
+       address: mi9NYtfg5b3RxFeJdrRgdYhjexSCY6zT1P
+       balance: 0
+2. Copy the wif (wallet info) And put it into the privatekeytestnet() To get the your previous wallet back
+Code :
+       from bit import PrivateKeyTestnet
+       mykey=PrivateKeyTestnet('cNMYiAgTMgiLiv32f1YVkUX4bavBgNuzvXXvsa1LWrQ
+       2y7ReTfr6')
+       print('version:',mykey.version)
+       print('wif:',mykey.to_wif())
+       print('address:',mykey.address)
+       print('balance:',mykey.get_balance('usd'))
+Output :
+        version: test
+        wif: cNMYiAgTMgiLiv32f1YVkUX4bavBgNuzvXXvsa1LWrQ2y7ReTfr6
+        address: mi9NYtfg5b3RxFeJdrRgdYhjexSCY6zT1P
+        balance: 0
+3. Go to browser and search for bitcoin testnet faucet then paste the address here
+4. Go to blockchainstream.info
+5. Websites for the bitcoins :
+    a. coinfacut.eu - to get bitcoin [testnet only]
+    b. blockstream.info - bitcoin testnet explorer
