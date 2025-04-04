@@ -1,1 +1,100 @@
+student details smart contract 
+
+// SPDX-License-Identifier: MIT 
+pragma solidity ^0.8.26; 
+contract Student{ 
+struct student_data{ 
+uint256 roll_no; 
+string name; 
+uint256 marks; 
+} 
+student_data[] public student; 
+mapping (uint256 => string) public 
+RollnoToName; 
+mapping (uint256 => uint256) public 
+RollnoTomarks; 
+function storeStuden(uint256 R_no, 
+string memory Nm,uint256 mks)public 
+{ 
+student.push(student_data(R_no,Nm,mks)); 
+RollnoTomarks[R_no]=mks; 
+RollnoToName[R_no]=Nm; 
+} 
+function NSS(uint256 R_no) public { 
+RollnoTomarks[R_no]+=10; 
+} 
+}
+
++++++++++++
+employee detail smart contract
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.26;
+contract Employee {
+ struct Emp_detail {
+ uint256 id;
+ string name;
+ uint256 sal;
+ string dep;
+ }
+ Emp_detail[] public employee;
+ mapping(uint256 => uint256) public
+EmployeeToSalary;
+ function store_emp(
+ uint256 id,
+ string memory name,
+ uint256 salary,
+ string memory dep
+ ) public {
+
+ employee.push(Emp_detail(id,
+name, salary, dep));
+ EmployeeToSalary[id] = salary;
+ }
+ function applyBonus(uint256 id)
+public {
+ require(EmployeeToSalary[id] > 0,
+"Employee not found");
+ uint256 bonus =
+EmployeeToSalary[id] / 10;
+ EmployeeToSalary[id] += bonus;
+ }
+}
+
++++++++++++++++++++
+
+product detail smart contract 
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.26;
+contract Product{
+ struct product_data{
+ uint256 Prd_ID;
+ string Prd_Name;
+ string Category;
+ uint256 Price;
+ }
+ product_data[] public pd;
+ mapping(uint256 => uint256) public
+PIDToPrice;
+ function storeProduct(uint256 pid,
+string memory nm,string memory catg,
+uint256 price) public {
+
+pd.push(product_data(pid,nm,catg,price)
+);
+ PIDToPrice[pid] = price;
+ }
+ function Bonus(uint256 id2,uint256
+dist) public {
+ uint256 a = PIDToPrice[id2];
+ a /=dist;
+ PIDToPrice[id2] -= a;
+ }
+}
+
+=================================================================
+
+
+
 
