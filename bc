@@ -2,28 +2,25 @@ student details smart contract
 
 // SPDX-License-Identifier: MIT 
 pragma solidity ^0.8.26; 
+ 
 contract Student{ 
-struct student_data{ 
-uint256 roll_no; 
-string name; 
-uint256 marks; 
-} 
-student_data[] public student; 
-mapping (uint256 => string) public 
-RollnoToName; 
-mapping (uint256 => uint256) public 
-RollnoTomarks; 
-function storeStuden(uint256 R_no, 
-string memory Nm,uint256 mks)public 
-{ 
-student.push(student_data(R_no,Nm,mks)); 
-RollnoTomarks[R_no]=mks; 
-RollnoToName[R_no]=Nm; 
-} 
-function NSS(uint256 R_no) public { 
-RollnoTomarks[R_no]+=10; 
-} 
+    struct student_data{ 
+        uint256 roll_no; 
+        string name; 
+        uint256 marks; 
+    } 
+    student_data[] public student; 
+    mapping (uint256 => string) public RollnoToName; 
+    mapping (uint256 => uint256) public RollnoTomarks; 
+ 
+    function storeStuden(uint256 R_no, string memory Nm,uint256 mks)public { 
+        student.push(student_data(R_no,Nm,mks)); 
+        RollnoTomarks[R_no]=mks; 
+        RollnoToName[R_no]=Nm; 
+    } 
 }
+
+
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 employee detail smart contract
